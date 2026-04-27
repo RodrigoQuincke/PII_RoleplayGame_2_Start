@@ -2,7 +2,7 @@ using System;
 
 namespace Ucu.Poo.RolePlayGame
 {
-    public class Item
+    public class Item : IItem
     {
         public string Name { get; }
         public int AttackValue { get; }

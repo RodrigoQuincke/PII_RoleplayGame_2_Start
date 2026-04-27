@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Ucu.Poo.RolePlayGame
 {
-    public class Elves
+    public class Elves : ICharacter
     {
         public string Name { get; }
         public int AttackValue { get; }
         private int DefenseValue { get; }
         private int InitialHealth { get; }
         public int Health { get; private set; }
-        public List<Item> Equipment { get; private set; }
+        public List<IItem> Equipment { get; private set; }
         public SpellsBook SpellsBook { get; private set; }
         public Elves(string name)
         {
@@ -19,14 +19,14 @@ namespace Ucu.Poo.RolePlayGame
             this.DefenseValue = 20;
             this.InitialHealth = 300;
             this.Health = this.InitialHealth;
-            this.Equipment = new List<Item>();
+            this.Equipment = new List<IItem>();
             this.Equipment.Add(new Item("Staff", 30, 0));
             this.SpellsBook = new SpellsBook("Elves Book");
         }
 
-        public void ReceiveAttack(int attackDamage)
+        public void ReceiveAttack(ICharacter attacker)
         {
-            int actualDamage = attackDamage - this.GetTotalDefense();
+            int actualDamage = attacker.GetTotalAttack() - this.GetTotalDefense();
             if (actualDamage > 0)
             {
                 this.Health -= actualDamage;
@@ -38,24 +38,19 @@ namespace Ucu.Poo.RolePlayGame
             this.Health = this.InitialHealth;
         }
 
-        public void Attack(Elves target)
-        {
-            target.ReceiveAttack(this.GetTotalAttack());
-        }
-
-        public void AddItem(Item item)
+        public void AddItem(IItem item)
         {
             this.Equipment.Add(item);
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(IItem item)
         {
             this.Equipment.Remove(item);
         }
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (Item item in this.Equipment)
+            foreach (IItem item in this.Equipment)
             {
                 total += item.AttackValue;
             }
@@ -66,7 +61,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (Item item in this.Equipment)
+            foreach (IItem item in this.Equipment)
             {
                 total += item.DefenseValue;
             }
