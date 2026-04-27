@@ -2,19 +2,16 @@ using System;
 
 namespace Ucu.Poo.RolePlayGame
 {
-    public class Item : IItem
+    public class Staff : IOffensiveItem
     {
         public string Name { get; }
         public int AttackValue { get; }
-        public int DefenseValue { get; }
     
 
-    public Item(string name, int attackValue, int defenseValue)
+    public Staff(string name, int attackValue)
         {
             this.Name = name;
             this.AttackValue = attackValue;
-            this.DefenseValue = defenseValue;
-
         }
     }
 }

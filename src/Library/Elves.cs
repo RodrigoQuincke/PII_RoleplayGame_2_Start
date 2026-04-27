@@ -20,7 +20,7 @@ namespace Ucu.Poo.RolePlayGame
             this.InitialHealth = 300;
             this.Health = this.InitialHealth;
             this.Equipment = new List<IItem>();
-            this.Equipment.Add(new Item("Staff", 30, 0));
+            this.Equipment.Add(new Staff("Staff", 30));
             this.SpellsBook = new SpellsBook("Elves Book");
         }
 
@@ -50,7 +50,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (IItem item in this.Equipment)
+            foreach (Item item in this.Equipment)
             {
                 total += item.AttackValue;
             }
@@ -61,7 +61,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (IItem item in this.Equipment)
+            foreach (Item item in this.Equipment)
             {
                 total += item.DefenseValue;
             }
