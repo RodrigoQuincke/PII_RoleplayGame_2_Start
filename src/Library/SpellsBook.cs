@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ucu.Poo.RolePlayGame
 {
-    public class SpellsBook
+    public class SpellsBook : IOffensiveItem, IDefensiveItem
     {
         public string Name { get; }
         public int AttackValue { get; set; }
