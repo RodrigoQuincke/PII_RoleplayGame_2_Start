@@ -60,10 +60,7 @@ namespace Ucu.Poo.RolePlayGame
             {
                 total += item.AttackValue;
             }
-            foreach (Spell spell in this.SpellsBook.Spells)
-            {
-                total += spell.AttackValue;
-            }
+            total += this.SpellsBook.GetTotalAttack();
             return total;
         }
 
@@ -74,10 +71,7 @@ namespace Ucu.Poo.RolePlayGame
             {
                 total += item.DefenseValue;
             }
-            foreach (Spell spell in this.SpellsBook.Spells)
-            {
-                total += spell.DefenseValue;
-            }
+            total += this.SpellsBook.GetTotalDefense();
             return total;
         }
     }
