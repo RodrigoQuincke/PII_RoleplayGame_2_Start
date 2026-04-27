@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace Ucu.Poo.RolePlayGame
 {
@@ -21,9 +22,9 @@ namespace Ucu.Poo.RolePlayGame
             this.InitialHealth = 400;
             this.Health = this.InitialHealth;
             this.Equipment = new List<IItem>();
-            this.Equipment.Add(new Item("Axe", 30, 0));
-            this.Equipment.Add(new Item("Helmet", 0, 15));
-            this.Equipment.Add(new Item("Shield", 0, 20));
+            this.Equipment.Add(new Axe("Axe", 30));
+            this.Equipment.Add(new Helmet("Helmet", 15));
+            this.Equipment.Add(new Shield("Shield", 20));
         }
 
         public void ReceiveAttack(ICharacter attacker)
@@ -38,7 +39,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (IItem item in this.Equipment)
+            foreach (IOffensiveItem item in this.Equipment)
             {
                 total += item.AttackValue;
             }
@@ -48,7 +49,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (IItem item in this.Equipment)
+            foreach (IDefensiveItem item in this.Equipment)
             {
                 total += item.DefenseValue;
             }

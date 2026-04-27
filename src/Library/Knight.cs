@@ -10,7 +10,7 @@ namespace Ucu.Poo.RolePlayGame
         private int DefenseValue { get; }
         private int InitialHealth { get; }
         public int Health { get; private set; }
-        public List<Item> Equipment { get; private set; }
+        public List<IItem> Equipment { get; private set; }
 
 
         public Knight(string name)
@@ -20,10 +20,10 @@ namespace Ucu.Poo.RolePlayGame
             this.DefenseValue = 100;
             this.InitialHealth = 300;
             this.Health = this.InitialHealth;
-            this.Equipment = new List<Item>();
-            this.Equipment.Add(new Item("Sword", 50, 0));
-            this.Equipment.Add(new Item("Shield", 0, 20));
-            this.Equipment.Add(new Item("Armor", 0, 50));
+            this.Equipment = new List<IItem>();
+            this.Equipment.Add(new Sword("Sword", 50));
+            this.Equipment.Add(new Shield("Shield", 20));
+            this.Equipment.Add(new Armor("Armor", 50));
         }
 
         public void ReceiveAttack(int attackDamage)
@@ -57,7 +57,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (Item item in this.Equipment)
+            foreach (IOffensiveItem item in this.Equipment)
             {
                 total += item.AttackValue;
             }
@@ -67,7 +67,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (Item item in this.Equipment)
+            foreach (IDefensiveItem item in this.Equipment)
             {
                 total += item.DefenseValue;
             }

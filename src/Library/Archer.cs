@@ -21,8 +21,8 @@ namespace Ucu.Poo.RolePlayGame
             this.InitialHealth = 100;
             this.Health = this.InitialHealth;
             this.Equipment = new List<IItem>();
-            this.Equipment.Add(new IOffensiveItem("Bow", 40));
-            this.Equipment.Add(new IDefensiveItem("Armor", 50));
+            this.Equipment.Add(new Bow("Bow", 40));
+            this.Equipment.Add(new Armor("Armor", 50));
         }
 
         public void ReceiveAttack(ICharacter attacker)
@@ -51,7 +51,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (IItem item in this.Equipment)
+            foreach (IOffensiveItem item in this.Equipment)
             {
                 total += item.AttackValue;
             }
@@ -61,7 +61,7 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (IItem item in this.Equipment)
+            foreach (IDefensiveItem item in this.Equipment)
             {
                 total += item.DefenseValue;
             }
