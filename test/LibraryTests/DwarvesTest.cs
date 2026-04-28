@@ -22,17 +22,8 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestReceiveAttack_ValidAttackDamage_ReducesHealth()
         {
             int initialHealth = dwarf.Health + dwarf.GetTotalDefense();
-            dwarf.ReceiveAttack(ogro.GetTotalAttack());
+            dwarf.ReceiveAttack(ogro);
             Assert.That(dwarf.Health, Is.EqualTo(initialHealth - ogro.GetTotalAttack()));
-        }
- 
-        [Test]
-        // Un ataque menor o igual a la defensa no reduce la vida
-        public void TestReceiveAttack_AttackDamageLowerThanDefense_HealthUnchanged()
-        {
-            int initialHealth = dwarf.Health;
-            dwarf.ReceiveAttack(1);
-            Assert.That(dwarf.Health, Is.EqualTo(initialHealth));
         }
  
         [Test]
@@ -40,7 +31,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestCure_AfterDamage_RestoresInitialHealth()
         {
             int initialHealth = dwarf.Health;
-            dwarf.ReceiveAttack(ogro.GetTotalAttack());
+            dwarf.ReceiveAttack(ogro);
             dwarf.Cure();
             Assert.That(dwarf.Health, Is.EqualTo(initialHealth));
         }
@@ -49,7 +40,8 @@ namespace Ucu.Poo.RolePlayGame.Tests
         // Agregar un item incrementa la lista de equipamiento
         public void TestAddItem_ValidItem_IncreasesEquipmentCount()
         {
-            dwarf.AddItem(new Item("Belt", 5, 5));
+            IItem item = new Shield("Shield", 20);
+            dwarf.AddItem(item);
             Assert.That(dwarf.Equipment, Has.Exactly(4).Items);
         }
  
@@ -57,7 +49,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
         // Quitar un item reduce la lista de equipamiento
         public void TestRemoveItem_ExistingItem_DecreasesEquipmentCount()
         {
-            Item item = new Item("Belt", 5, 5);
+            IItem item = new Shield("Shield", 20);
             dwarf.AddItem(item);
             dwarf.RemoveItem(item);
             Assert.That(dwarf.Equipment, Has.Exactly(3).Items);

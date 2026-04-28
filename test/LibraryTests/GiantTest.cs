@@ -24,15 +24,15 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestReceiveAttack_ValidAttackDamage()
         {
             int initialHealth = ogro.Health + ogro.GetTotalDefense();
-            ogro.ReceiveAttack(wizard.GetTotalAttack());
+            ogro.ReceiveAttack(wizard);
             Assert.That(ogro.Health, Is.EqualTo(initialHealth - wizard.GetTotalAttack()));
         }
 
         [Test]
-        public void TestCure()
+        public void TestCure_AfterDamage_RestoresInitialHealth()
         {
             int initialHealth = ogro.Health;
-            ogro.ReceiveAttack(ogro.GetTotalAttack());
+            ogro.ReceiveAttack(wizard);
             ogro.Cure();
             Assert.That(ogro.Health, Is.EqualTo(initialHealth));
         }
@@ -40,14 +40,14 @@ namespace Ucu.Poo.RolePlayGame.Tests
         [Test]
         public void TestAddItem_ValidItem()
         {
-            ogro.AddItem(new Item("Gloves", 0, 20));
+            ogro.AddItem(new Shield("Shield", 20));
             Assert.That(ogro.Equipment, Has.Exactly(1).Items);
         }
 
         [Test]
         public void TestRemoveItem_ValidItem()
         {
-            Item item = new Item("Shield", 0, 50);
+            IItem item = new Shield("Shield", 20);
             ogro.AddItem(item);
             ogro.RemoveItem(item);
             Assert.That(ogro.Equipment, Has.Exactly(0).Items);

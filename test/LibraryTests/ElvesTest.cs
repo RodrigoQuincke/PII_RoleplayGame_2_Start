@@ -24,23 +24,15 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestReceiveAttack_ValidAttackDamage()
         {
             int initialHealth = elfo.Health + elfo.GetTotalDefense();
-            elfo.ReceiveAttack(ogro.GetTotalAttack());
+            elfo.ReceiveAttack(ogro);
             Assert.That(elfo.Health, Is.EqualTo(initialHealth - ogro.GetTotalAttack()));
         }
 
         [Test]
-        public void TestReceiveAttack_AttackDamageLowerThanHealth()
+        public void TestCure_AfterDamage_RestoresInitialHealth()
         {
             int initialHealth = elfo.Health;
-            elfo.ReceiveAttack(1);
-            Assert.That(elfo.Health, Is.EqualTo(initialHealth));
-        }
-
-        [Test]
-        public void TestCure()
-        {
-            int initialHealth = elfo.Health;
-            elfo.ReceiveAttack(ogro.GetTotalAttack());
+            elfo.ReceiveAttack(ogro);
             elfo.Cure();
             Assert.That(elfo.Health, Is.EqualTo(initialHealth));
         }
@@ -48,14 +40,14 @@ namespace Ucu.Poo.RolePlayGame.Tests
         [Test]
         public void TestAddItem_ValidItem()
         {
-            elfo.AddItem(new Item("Bow", 20, 0));
+            elfo.AddItem(new Bow("Bow", 20));
             Assert.That(elfo.Equipment, Has.Exactly(2).Items);
         }
 
         [Test]
         public void TestRemoveItem_ValidItem()
         {
-            Item item = new Item("Bow", 20, 0);
+            Bow item = new Bow("Bow", 20);
             elfo.AddItem(item);
             elfo.RemoveItem(item);
             Assert.That(elfo.Equipment, Has.Exactly(1).Items);

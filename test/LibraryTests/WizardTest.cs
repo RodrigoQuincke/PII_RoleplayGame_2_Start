@@ -10,6 +10,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
 
         private Giant ogro;
         private Wizard wizard;
+        private Elves elfo;
         private Spell shoot;
         [SetUp]
         public void Setup()
@@ -24,23 +25,23 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestReceiveAttack_ValidAttackDamage()
         {
             int initialHealth = wizard.Health + wizard.GetTotalDefense();
-            wizard.ReceiveAttack(ogro.GetTotalAttack());
+            wizard.ReceiveAttack(ogro);
             Assert.That(wizard.Health, Is.EqualTo(initialHealth - ogro.GetTotalAttack()));
         }
 
         [Test]
-        public void TestReceiveAttack_AttackDamageLowerThanHealth()
+        public void TestReceiveAttack_AttackDamageLowerThanDefense()
         {
             int initialHealth = wizard.Health;
-            wizard.ReceiveAttack(1);
+            wizard.ReceiveAttack(elfo);
             Assert.That(wizard.Health, Is.EqualTo(initialHealth));
         }
 
         [Test]
-        public void TestCure()
+        public void TestCure_AfterDamage_RestoresInitialHealth()
         {
             int initialHealth = wizard.Health;
-            wizard.ReceiveAttack(ogro.GetTotalAttack());
+            wizard.ReceiveAttack(ogro);
             wizard.Cure();
             Assert.That(wizard.Health, Is.EqualTo(initialHealth));
         }
@@ -48,14 +49,14 @@ namespace Ucu.Poo.RolePlayGame.Tests
         [Test]
         public void TestAddItem_ValidItem()
         {
-            wizard.AddItem(new Item("Gloves", 0, 20));
+            wizard.AddItem(new Shield("Shield", 20));
             Assert.That(wizard.Equipment, Has.Exactly(2).Items);
         }
 
         [Test]
         public void TestRemoveItem_ValidItem()
         {
-            Item item = new Item("Gloves", 0, 20);
+            IItem item = new Shield("Shield", 20);
             wizard.AddItem(item);
             wizard.RemoveItem(item);
             Assert.That(wizard.Equipment, Has.Exactly(1).Items);
