@@ -22,7 +22,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestReceiveAttack_ValidAttackDamage_ReducesHealth()
         {
             int initialHealth = archer.Health + archer.GetTotalDefense();
-            archer.ReceiveAttack(ogro.GetTotalAttack());
+            archer.ReceiveAttack(ogro);
             Assert.That(archer.Health, Is.EqualTo(initialHealth - ogro.GetTotalAttack()));
         }
  
@@ -30,8 +30,10 @@ namespace Ucu.Poo.RolePlayGame.Tests
         // Un ataque menor o igual a la defensa no reduce la vida
         public void TestReceiveAttack_AttackDamageLowerThanDefense_HealthUnchanged()
         {
+            IItem helmet = new Helmet("casco", 100);
+            archer.AddItem(helmet);
             int initialHealth = archer.Health;
-            archer.ReceiveAttack(1);
+            archer.ReceiveAttack(ogro);
             Assert.That(archer.Health, Is.EqualTo(initialHealth));
         }
  
@@ -40,7 +42,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
         public void TestCure_AfterDamage_RestoresInitialHealth()
         {
             int initialHealth = archer.Health;
-            archer.ReceiveAttack(ogro.GetTotalAttack());
+            archer.ReceiveAttack(ogro);
             archer.Cure();
             Assert.That(archer.Health, Is.EqualTo(initialHealth));
         }
@@ -49,7 +51,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
         // Agregar un item incrementa la lista de equipamiento
         public void TestAddItem_ValidItem_IncreasesEquipmentCount()
         {
-            archer.AddItem(new Item("Quiver", 10, 0));
+            archer.AddItem(new Bow("bow2", 10));
             Assert.That(archer.Equipment, Has.Exactly(3).Items);
         }
  
@@ -57,9 +59,9 @@ namespace Ucu.Poo.RolePlayGame.Tests
         // Quitar un item reduce la lista de equipamiento
         public void TestRemoveItem_ExistingItem_DecreasesEquipmentCount()
         {
-            Item item = new Item("Quiver", 10, 0);
-            archer.AddItem(item);
-            archer.RemoveItem(item);
+            IItem bow2 = new Bow("bow2", 10);
+            archer.AddItem(bow2);
+            archer.RemoveItem(bow2);
             Assert.That(archer.Equipment, Has.Exactly(2).Items);
         }
  

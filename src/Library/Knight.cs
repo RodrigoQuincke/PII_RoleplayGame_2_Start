@@ -45,12 +45,12 @@ namespace Ucu.Poo.RolePlayGame
             target.ReceiveAttack(this.GetTotalAttack());
         }
 
-        public void AddItem(Item item)
+        public void AddItem(IItem item)
         {
             this.Equipment.Add(item);
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(IItem item)
         {
             this.Equipment.Remove(item);
         }

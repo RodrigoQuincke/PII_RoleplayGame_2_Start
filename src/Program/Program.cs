@@ -29,10 +29,10 @@ namespace Ucu.Poo.RolePlayGame
             mago.SpellsBook.AddSpell(fireball);
             Console.WriteLine("Ataque total de " + mago.Name + " es " + mago.GetTotalAttack()); 
 
-            ogro.ReceiveAttack(mago.GetTotalAttack());
+            ogro.ReceiveAttack(mago);
             Console.WriteLine("Salud del " + ogro.Name + " luego del ataque es " + ogro.Health);
 
-            mago.ReceiveAttack(ogro.GetTotalAttack());
+            mago.ReceiveAttack(ogro);
             Console.WriteLine("Salud del " + mago.Name + " después del ataque es " + mago.Health);
 
             ogro.Cure();
@@ -43,8 +43,8 @@ namespace Ucu.Poo.RolePlayGame
             elfo.SpellsBook.AddSpell(arrow);
             Console.WriteLine("Elfo: " + elfo.Name);
             
-            ogro.ReceiveAttack(elfo.GetTotalAttack());
-            ogro.ReceiveAttack(mago.GetTotalAttack());
+            ogro.ReceiveAttack(elfo);
+            ogro.ReceiveAttack(mago);
             Console.WriteLine("Salud del " + ogro.Name + " luego de recibir varios ataques es " + ogro.Health);
         }
     }
