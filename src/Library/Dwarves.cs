@@ -39,9 +39,13 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalAttack()
         {
             int total = this.AttackValue;
-            foreach (IOffensiveItem item in this.Equipment)
+            foreach (IItem item in this.Equipment)
             {
-                total += item.AttackValue;
+                if (item is IOffensiveItem)
+                {
+                    IOffensiveItem offensiveItem = (IOffensiveItem)item;
+                    total += offensiveItem.AttackValue;
+                }
             }
             return total;
         }
@@ -49,9 +53,13 @@ namespace Ucu.Poo.RolePlayGame
         public int GetTotalDefense()
         {
             int total = this.DefenseValue;
-            foreach (IDefensiveItem item in this.Equipment)
+            foreach (IItem item in this.Equipment)
             {
-                total += item.DefenseValue;
+                if (item is IDefensiveItem)
+                {
+                    IDefensiveItem defensiveItem = (IDefensiveItem)item;
+                    total += defensiveItem.DefenseValue;
+                }
             }
             return total;
         }

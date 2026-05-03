@@ -18,7 +18,7 @@ namespace Ucu.Poo.RolePlayGame
         /// </summary>
         public static void Main(string[] args)
         {
-            Giant ogro = new Giant("Ogro");
+            ICharacter ogro = new Giant("Ogro");
             Console.WriteLine("Gigante: " + ogro.Name);
 
             Wizard mago = new Wizard("Mago de fuego");
