@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ucu.Poo.RolePlayGame
 {
-    public class Knight
+    public class Knight : ICharacter
     {
         public string Name { get; }
         public int AttackValue { get; }
@@ -26,9 +26,9 @@ namespace Ucu.Poo.RolePlayGame
             this.Equipment.Add(new Armor("Armor", 50));
         }
 
-        public void ReceiveAttack(int attackDamage)
+        public void ReceiveAttack(ICharacter attacker)
         {
-            int actualDamage = attackDamage - this.GetTotalDefense();
+            int actualDamage = attacker.GetTotalAttack() - this.GetTotalDefense();
             if (actualDamage > 0)
             {
                 this.Health -= actualDamage;
@@ -38,11 +38,6 @@ namespace Ucu.Poo.RolePlayGame
         public void Cure()
         {
             this.Health = this.InitialHealth;
-        }
-
-        public void Attack(Knight target)
-        {
-            target.ReceiveAttack(this.GetTotalAttack());
         }
 
         public void AddItem(IItem item)

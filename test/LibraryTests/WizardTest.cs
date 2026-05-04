@@ -18,6 +18,7 @@ namespace Ucu.Poo.RolePlayGame.Tests
             ogro = new Giant("Ogro Gigante");
             wizard = new Wizard("Mago");
             shoot = new Spell("Bola de fuego", 80, 0);
+            elfo = new Elves("elfo");
             wizard.SpellsBook.AddSpell(shoot);
         }
 
